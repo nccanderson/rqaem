@@ -116,11 +116,58 @@ rqa_by(eyedat, x = x, y = y, duration = duration,
        by = "trial", radius = 80)
 ```
 
-## What's next
+## Plots
 
-The recurrence-plot helper `plot_recurrence()` and the
-bootstrap-significance / radius-selection helpers
-(`rqa_bootstrap()`, `radius_sweep()`) ship in later milestones.
+Three ggplot2-based helpers cover the standard RQA visualisations.
+
+`plot_recurrence()` draws the recurrence matrix as a tile plot. For
+binary RQA the cells are filled with a single colour; for the
+duration-weighted variant they use a viridis colour scale. The same
+plot is also the default for `ggplot2::autoplot()` on an
+`rqa_result`.
+
+```{r recurrence-plot, fig.width = 4, fig.height = 4}
+plot_recurrence(result)
+```
+
+`plot_fixations()` shows the scanpath and optionally draws circles
+of radius `radius` around each fixation:
+
+```{r fixations-plot, fig.width = 5, fig.height = 4}
+plot_fixations(fix, radius = 64)
+```
+
+`plot_fixations_grid()` overlays a regular grid — handy when you are
+about to coarsen xy fixations into a categorical sequence:
+
+```{r fixations-grid-plot, fig.width = 5, fig.height = 4}
+plot_fixations_grid(fix, grid_size = 80)
+```
+
+## Significance testing and radius selection
+
+`rqa_bootstrap()` produces a null distribution for each metric by
+resampling. Two null types are available: `"shuffle"` permutes the
+fixation order (preserves the spatial distribution; breaks temporal
+structure) and `"uniform"` draws fresh fixations from a uniform
+distribution on a given screen (breaks both).
+
+```{r}
+boot <- rqa_bootstrap(fix, radius = 64, n = 200, seed = 1L)
+summary(boot)
+```
+
+`radius_sweep()` runs `rqa()` across a grid of candidate radii. When
+you pass `bootstrap_n > 0` it also attaches a percentile-bootstrap
+ribbon at each radius. The companion `autoplot()` method reproduces
+the radius-selection plot from Fig. 7 of Anderson et al. (2013):
+
+```{r radius-sweep-plot, fig.width = 6, fig.height = 4}
+sweep <- radius_sweep(fix,
+                      radii = c(30, 60, 90, 120, 150),
+                      bootstrap_n = 99L, seed = 1L)
+ggplot2::autoplot(sweep)
+```
 
 ## Reference
 

@@ -15,12 +15,10 @@ GitHub: <https://github.com/nccanderson/rqaem>
 
 ## Current milestone
 
-**M7 — Plotting.** `plot_recurrence()`, `plot_fixations()`,
-`plot_fixations_grid()`, and the deferred `autoplot.rqa_result()` /
-`autoplot.radius_sweep()` methods, with vdiffr snapshot tests. See
-`../PLAN.md` §7.
+**M8 — Polish.** README.Rmd with badge block, NEWS.md update, optional
+pkgdown site, tag v0.1.0. See `../PLAN.md` §7.
 
-When M7 completes, change this line to the next milestone.
+When M8 completes, the package is ready for its first tagged release.
 
 ## Non-negotiable conventions
 
