@@ -29,6 +29,7 @@ Imports:
     vctrs
 Suggests:
     dplyr,
+    jsonlite,
     knitr,
     magick,
     rmarkdown,
