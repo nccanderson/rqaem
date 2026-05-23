@@ -36,9 +36,8 @@ normalize_fixture_case <- function(cs) {
   cs$result$recmat <- if (is.null(recmat_raw) || length(recmat_raw) == 0L) {
     NULL
   } else {
-    out <- do.call(rbind, lapply(recmat_raw, unlist))
-    storage.mode(out) <- "integer"
-    out
+    # Keep numeric — duration-weighted recmats are not integer.
+    do.call(rbind, lapply(recmat_raw, unlist))
   }
   scalar_keys <- setdiff(names(cs$result), "recmat")
   for (k in scalar_keys) {

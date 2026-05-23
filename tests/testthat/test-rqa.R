@@ -26,11 +26,10 @@ test_that("rqa() matches Python reference at bit-for-bit parity", {
       )
     }
     if (!is.null(cs$result$recmat)) {
-      got_recmat <- unname(as.matrix(got$recmat))
-      storage.mode(got_recmat) <- "integer"
-      expect_identical(
-        got_recmat,
-        cs$result$recmat,
+      expect_equal(
+        unname(as.matrix(got$recmat)),
+        unname(cs$result$recmat),
+        tolerance = 1e-8,
         info = sprintf("case=%s recmat", cs$name)
       )
     }

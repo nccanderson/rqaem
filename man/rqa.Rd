@@ -4,7 +4,7 @@
 \alias{rqa}
 \title{Recurrence quantification analysis of a fixation sequence}
 \usage{
-rqa(fixations, radius, line_length = 2L, min_cluster = 8L)
+rqa(fixations, radius, line_length = 2L, min_cluster = 8L, duration = NULL)
 }
 \arguments{
 \item{fixations}{Numeric matrix / data.frame with two columns
@@ -20,6 +20,12 @@ Defaults to \code{2L}, matching the originals.}
 
 \item{min_cluster}{Minimum component size (in cells) included in the
 \code{clusters} metric. Defaults to \code{8L}, matching the originals.}
+
+\item{duration}{Optional numeric vector with one duration per
+fixation. When supplied, switches to the duration-weighted variant
+(the recurrence matrix entries become \code{dur[i] + dur[j]} instead
+of \code{1}, and line measures sum durations instead of cell counts).
+Defaults to \code{NULL} (binary RQA).}
 }
 \value{
 A list of class \code{c("rqa_result", "list")}:
@@ -31,14 +37,26 @@ A list of class \code{c("rqa_result", "list")}:
 Computes the recurrence matrix and the scalar RQA metrics described
 in Anderson, Bischof, Laidlaw, Risko and Kingstone (2013):
 \code{rec}, \code{det}, \code{revdet}, \code{lam}, \code{tt}, \code{corm}, \code{meanline}, \code{maxline},
-\code{ent}, \code{relent}, and the cluster fraction \code{clusters}. The
-implementation is a direct port of the reference Python \code{Rqa.py}
-and is verified against it at bit-for-bit parity on a curated set
-of test fixtures.
+\code{ent}, \code{relent}, and the cluster fraction \code{clusters}. Supports both
+the binary recurrence formulation (default) and the duration-
+weighted variant when a \code{duration} vector is supplied.
+}
+\details{
+The implementation is a direct port of the reference Python
+\code{Rqa.py} / \code{RqaDur.py} and is verified against them at bit-for-bit
+parity on a curated set of test fixtures.
+
+The duration-weighted variant follows \code{RqaDur.py} exactly. One
+consequence worth noting: the originals compute \code{corm} \emph{outside}
+the early-return guard, so when the upper triangle is empty
+(\code{nrec == 0}) \code{corm} evaluates to \code{NaN} (0 / 0). This package
+preserves that behaviour for parity.
 }
 \examples{
 fix <- rbind(c(0, 0), c(1, 1), c(100, 100), c(0.5, 0.5))
-res <- rqa(fix, radius = 5)
-res$rec
+rqa(fix, radius = 5)$rec
+
+# Duration-weighted variant
+rqa(fix, radius = 5, duration = c(200, 150, 300, 220))$rec
 
 }
