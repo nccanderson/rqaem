@@ -15,11 +15,11 @@ GitHub: <https://github.com/nccanderson/rqaem>
 
 ## Current milestone
 
-**M1 — Core helpers.** `recurrence_matrix()`, line-length extractor,
-entropy, 8-connected labeller — each with unit tests against tiny
-hand-built fixtures. See `../PLAN.md` §7 for the full milestone list.
+**M5 — Bootstrap.** `rqa_bootstrap()` with both `shuffle` and
+`uniform` types; `summary()` method prints p-values and percentile
+intervals; seeded determinism test. See `../PLAN.md` §7 / §10.
 
-When M1 completes, change this line to the next milestone.
+When M5 completes, change this line to the next milestone.
 
 ## Non-negotiable conventions
 
