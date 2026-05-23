@@ -51,12 +51,12 @@ devtools::install_github("nccanderson/rqaem")
 ```{r example}
 library(rqaem)
 
-# A short scanpath
-fix <- rbind(
-  c(510, 385), c(466, 429), c(406, 449), c(135, 333),
-  c(296, 409), c(117, 398), c(317, 327), c(439, 305),
-  c(302, 270), c(444, 347), c(507, 454), c(341, 327),
-  c(459, 270), c(493, 293), c(630, 341), c(655, 431)
+# A short scanpath (16 fixations from the originals' TestRqa.py example).
+fix <- tibble::tibble(
+  x = c(510, 466, 406, 135, 296, 117, 317, 439,
+        302, 444, 507, 341, 459, 493, 630, 655),
+  y = c(385, 429, 449, 333, 409, 398, 327, 305,
+        270, 347, 454, 327, 270, 293, 341, 431)
 )
 
 result <- rqa(fix, radius = 64)

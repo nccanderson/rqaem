@@ -34,29 +34,21 @@ library(rqaem)
 
 ## One trial
 
-A fixation sequence is just an `n` x 2 matrix or data frame of `(x, y)`
-coordinates. The other required argument is `radius`, the threshold
-distance (in the same units as the coordinates) within which two
-fixations count as recurrent.
+A fixation sequence is just an `n` x 2 numeric matrix or data frame
+of `(x, y)` coordinates — one row per fixation. The other required
+argument is `radius`, the threshold distance (in the same units as
+the coordinates) within which two fixations count as recurrent.
+
+The example below is a 16-fixation scanpath taken from the
+originals' `TestRqa.py` example; the coordinates are screen pixels
+on a 1000 x 750 display.
 
 ```{r}
-fix <- rbind(
-  c(510, 385),
-  c(466, 429),
-  c(406, 449),
-  c(135, 333),
-  c(296, 409),
-  c(117, 398),
-  c(317, 327),
-  c(439, 305),
-  c(302, 270),
-  c(444, 347),
-  c(507, 454),
-  c(341, 327),
-  c(308, 259),
-  c(459, 270),
-  c(493, 293),
-  c(630, 341)
+fix <- tibble::tibble(
+  x = c(510, 466, 406, 135, 296, 117, 317, 439,
+        302, 444, 507, 341, 308, 459, 493, 630),
+  y = c(385, 429, 449, 333, 409, 398, 327, 305,
+        270, 347, 454, 327, 259, 270, 293, 341)
 )
 
 result <- rqa(fix, radius = 64)
@@ -91,24 +83,8 @@ rather than `1`, and line measures sum durations rather than counting
 cells.
 
 ```{r}
-durations <- c(
-  343,
-  232,
-  276,
-  312,
-  412,
-  188,
-  220,
-  305,
-  270,
-  261,
-  294,
-  327,
-  259,
-  220,
-  196,
-  342
-)
+durations <- c(343, 232, 276, 312, 412, 188, 220, 305,
+               270, 261, 294, 327, 259, 220, 196, 342)
 rqa(fix, radius = 64, duration = durations)
 ```
 
@@ -191,8 +167,11 @@ the radius-selection plot from Fig. 7 of Anderson et al. (2013):
 ```{r radius-sweep-plot, fig.width = 6, fig.height = 4}
 sweep <- radius_sweep(
   fix,
-  radii = c(30, 60, 90, 120, 150),
-  bootstrap_n = 99L,
+  radii = seq(20, 600, by = 20),
+  bootstrap_n = 999L,
+  bootstrap_type = "uniform",
+  screen = c(max(fix$x) - min(fix$x),
+             max(fix$y) - min(fix$y)),
   seed = 1L
 )
 ggplot2::autoplot(sweep)

@@ -9,3 +9,6 @@ docs
 data-raw/.venv
 data-raw/__pycache__
 .companion-state/
+vignettes/*.html
+vignettes/*_files/
+vignettes/*_cache/
