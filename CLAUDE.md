@@ -15,11 +15,11 @@ GitHub: <https://github.com/nccanderson/rqaem>
 
 ## Current milestone
 
-**M5 — Bootstrap.** `rqa_bootstrap()` with both `shuffle` and
-`uniform` types; `summary()` method prints p-values and percentile
-intervals; seeded determinism test. See `../PLAN.md` §7 / §10.
+**M6 — Radius sweep.** `radius_sweep()` + `autoplot()` reproduces
+Fig. 7 of the 2013 paper; optional `bootstrap_n` integrates with M5.
+See `../PLAN.md` §7 / §10.
 
-When M5 completes, change this line to the next milestone.
+When M6 completes, change this line to the next milestone.
 
 ## Non-negotiable conventions
 
