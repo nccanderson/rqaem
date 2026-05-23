@@ -15,11 +15,12 @@ GitHub: <https://github.com/nccanderson/rqaem>
 
 ## Current milestone
 
-**M6 — Radius sweep.** `radius_sweep()` + `autoplot()` reproduces
-Fig. 7 of the 2013 paper; optional `bootstrap_n` integrates with M5.
-See `../PLAN.md` §7 / §10.
+**M7 — Plotting.** `plot_recurrence()`, `plot_fixations()`,
+`plot_fixations_grid()`, and the deferred `autoplot.rqa_result()` /
+`autoplot.radius_sweep()` methods, with vdiffr snapshot tests. See
+`../PLAN.md` §7.
 
-When M6 completes, change this line to the next milestone.
+When M7 completes, change this line to the next milestone.
 
 ## Non-negotiable conventions
 
