@@ -1,0 +1,38 @@
+Package: rqaem
+Title: Recurrence Quantification Analysis of Eye Movements
+Version: 0.0.0.9000
+Authors@R: c(
+    person("Nicki", "Anderson", , "nicki@cognitive3d.com",
+           role = c("aut", "cre")),
+    person("Walter F.", "Bischof", role = "ctb",
+           comment = "Author of the reference Python and MATLAB implementations")
+  )
+Description: Tools for recurrence quantification analysis (RQA) of
+    fixation sequences as described in Anderson, Bischof, Laidlaw, Risko
+    and Kingstone (2013) <doi:10.3758/s13428-012-0299-5>. Provides a tidy
+    data-frame workflow with sparse recurrence matrices, bootstrap
+    significance testing, and radius selection. Ports the reference
+    Python and MATLAB implementations at bit-for-bit parity on the
+    bundled test fixtures.
+License: MIT + file LICENSE
+URL: https://github.com/nccanderson/rqaem
+BugReports: https://github.com/nccanderson/rqaem/issues
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.3
+Imports:
+    Matrix,
+    ggplot2,
+    rlang,
+    stats,
+    tibble,
+    vctrs
+Suggests:
+    dplyr,
+    knitr,
+    magick,
+    rmarkdown,
+    testthat (>= 3.0.0),
+    vdiffr
+Config/testthat/edition: 3
+VignetteBuilder: knitr

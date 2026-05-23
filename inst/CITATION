@@ -1,0 +1,28 @@
+citHeader("To cite rqaem in publications, cite the method paper:")
+
+bibentry(
+  bibtype  = "Article",
+  title    = paste("Recurrence quantification analysis of eye movements"),
+  author   = c(
+    person("Nicola C.", "Anderson"),
+    person("Walter F.", "Bischof"),
+    person("Kaitlin", "Laidlaw"),
+    person("Evan F.", "Risko"),
+    person("Alan", "Kingstone")
+  ),
+  journal  = "Behavior Research Methods",
+  year     = "2013",
+  volume   = "45",
+  number   = "3",
+  pages    = "842-856",
+  doi      = "10.3758/s13428-012-0299-5"
+)
+
+bibentry(
+  bibtype  = "Manual",
+  title    = "rqaem: Recurrence Quantification Analysis of Eye Movements",
+  author   = c(person("Nicki", "Anderson")),
+  year     = format(Sys.Date(), "%Y"),
+  note     = sprintf("R package version %s", utils::packageVersion("rqaem")),
+  url      = "https://github.com/nccanderson/rqaem"
+)

@@ -1,0 +1,11 @@
+^LICENSE\.md$
+^README\.Rmd$
+^README\.html$
+^\.github$
+^data-raw$
+^\.Rproj\.user$
+^.*\.Rproj$
+^CLAUDE\.md$
+^PLAN\.md$
+^cran-comments\.md$
+^\.companion-state$
