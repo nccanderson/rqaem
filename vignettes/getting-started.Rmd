@@ -41,10 +41,22 @@ fixations count as recurrent.
 
 ```{r}
 fix <- rbind(
-  c(510, 385), c(466, 429), c(406, 449), c(135, 333),
-  c(296, 409), c(117, 398), c(317, 327), c(439, 305),
-  c(302, 270), c(444, 347), c(507, 454), c(341, 327),
-  c(308, 259), c(459, 270), c(493, 293), c(630, 341)
+  c(510, 385),
+  c(466, 429),
+  c(406, 449),
+  c(135, 333),
+  c(296, 409),
+  c(117, 398),
+  c(317, 327),
+  c(439, 305),
+  c(302, 270),
+  c(444, 347),
+  c(507, 454),
+  c(341, 327),
+  c(308, 259),
+  c(459, 270),
+  c(493, 293),
+  c(630, 341)
 )
 
 result <- rqa(fix, radius = 64)
@@ -79,8 +91,24 @@ rather than `1`, and line measures sum durations rather than counting
 cells.
 
 ```{r}
-durations <- c(343, 232, 276, 312, 412, 188, 220, 305, 270, 261,
-               294, 327, 259, 220, 196, 342)
+durations <- c(
+  343,
+  232,
+  276,
+  312,
+  412,
+  188,
+  220,
+  305,
+  270,
+  261,
+  294,
+  327,
+  259,
+  220,
+  196,
+  342
+)
 rqa(fix, radius = 64, duration = durations)
 ```
 
@@ -94,8 +122,8 @@ row per group with all 13 scalar metrics comes out.
 set.seed(1)
 eyedat <- data.frame(
   trial = rep(1:4, each = 25),
-  x     = runif(100, 0, 1000),
-  y     = runif(100, 0, 1000)
+  x = runif(100, 0, 1000),
+  y = runif(100, 0, 1000)
 )
 rqa_by(eyedat, x = x, y = y, by = "trial", radius = 80)
 ```
@@ -104,16 +132,14 @@ Multiple grouping columns work the same way:
 
 ```{r}
 eyedat$participant <- rep(c("A", "B"), each = 50)
-rqa_by(eyedat, x = x, y = y,
-       by = c("trial", "participant"), radius = 80)
+rqa_by(eyedat, x = x, y = y, by = c("trial", "participant"), radius = 80)
 ```
 
 Add a duration column to switch to the weighted variant trial-by-trial:
 
 ```{r}
 eyedat$duration <- sample(150:500, 100, replace = TRUE)
-rqa_by(eyedat, x = x, y = y, duration = duration,
-       by = "trial", radius = 80)
+rqa_by(eyedat, x = x, y = y, duration = duration, by = "trial", radius = 80)
 ```
 
 ## Plots
@@ -163,9 +189,12 @@ ribbon at each radius. The companion `autoplot()` method reproduces
 the radius-selection plot from Fig. 7 of Anderson et al. (2013):
 
 ```{r radius-sweep-plot, fig.width = 6, fig.height = 4}
-sweep <- radius_sweep(fix,
-                      radii = c(30, 60, 90, 120, 150),
-                      bootstrap_n = 99L, seed = 1L)
+sweep <- radius_sweep(
+  fix,
+  radii = c(30, 60, 90, 120, 150),
+  bootstrap_n = 99L,
+  seed = 1L
+)
 ggplot2::autoplot(sweep)
 ```
 

@@ -1,6 +1,6 @@
 Package: rqaem
 Title: Recurrence Quantification Analysis of Eye Movements
-Version: 0.0.0.9000
+Version: 0.1.0
 Authors@R: c(
     person("Nicki", "Anderson", , "nicki@cognitive3d.com",
            role = c("aut", "cre")),

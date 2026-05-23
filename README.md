@@ -1,17 +1,6 @@
----
-output: github_document
----
-
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>",
-  fig.path = "man/figures/README-",
-  out.width = "100%"
-)
-```
+
 
 # rqaem
 
@@ -48,7 +37,8 @@ devtools::install_github("nccanderson/rqaem")
 
 ## Quick start
 
-```{r example}
+
+``` r
 library(rqaem)
 
 # A short scanpath
@@ -61,13 +51,34 @@ fix <- rbind(
 
 result <- rqa(fix, radius = 64)
 result
+#> <rqa_result> (rqa)
+#>   n = 16, radius = 64, line_length = 2, min_cluster = 8
+#>   Metrics:
+#>     nrec      9
+#>     rec       7.5
+#>     det       66.67
+#>     revdet    NA
+#>     meanline  2
+#>     maxline   2
+#>     ent       0
+#>     relent    NaN
+#>     lam       5.882
+#>     tt        2
+#>     corm      23.7
+#>     clusters  0
 ```
 
 The recurrence matrix is on `result$recmat`. Plot it directly:
 
-```{r recurrence-plot, fig.width = 4, fig.height = 4}
+
+``` r
 plot_recurrence(result)
 ```
+
+<div class="figure">
+<img src="man/figures/README-recurrence-plot-1.png" alt="plot of chunk recurrence-plot" width="100%" />
+<p class="caption">plot of chunk recurrence-plot</p>
+</div>
 
 ## Multi-trial workflow
 
@@ -75,7 +86,8 @@ The headline ergonomic win over the originals: feed `rqa_by()` a
 long-format data frame and get back one row per trial with all 13
 scalar metrics.
 
-```{r rqa_by}
+
+``` r
 set.seed(1)
 eyedat <- data.frame(
   trial = rep(1:4, each = 25),
@@ -83,6 +95,14 @@ eyedat <- data.frame(
   y     = runif(100, 0, 1000)
 )
 rqa_by(eyedat, x = x, y = y, by = "trial", radius = 80)
+#> # A tibble: 4 x 14
+#>   trial     n  nrec   rec   det revdet meanline maxline   ent relent   lam    tt
+#>   <int> <int> <int> <dbl> <dbl>  <dbl>    <dbl>   <dbl> <dbl>  <dbl> <dbl> <dbl>
+#> 1     1    25     6  2       NA     NA       NA      NA    NA     NA    NA    NA
+#> 2     2    25     3  1       NA     NA       NA      NA    NA     NA    NA    NA
+#> 3     3    25     8  2.67    NA     NA       NA      NA    NA     NA    NA    NA
+#> 4     4    25     5  1.67    NA     NA       NA      NA    NA     NA    NA    NA
+#> # i 2 more variables: corm <dbl>, clusters <dbl>
 ```
 
 ## Significance and radius selection
@@ -92,9 +112,18 @@ types: `"shuffle"` (permute fixation order, preserve positions —
 breaks temporal structure) and `"uniform"` (draw fresh fixations from
 a uniform-on-screen distribution — breaks spatial structure too).
 
-```{r bootstrap}
+
+``` r
 boot <- rqa_bootstrap(fix, radius = 64, n = 199, seed = 1L)
 summary(boot)
+#> <rqa_bootstrap> summary (shuffle, n = 199, 95% CI)
+#>  metric observed p_value     lo    hi
+#>     rec    7.500 1.00000  7.500  7.50
+#>     det   66.667 0.02041 22.222 55.56
+#>     lam    5.882 1.00000  5.882 17.65
+#>      tt    2.000 1.00000  2.000  2.50
+#>    corm   23.704 0.95918 21.037 51.85
+#>     ent    0.000 1.00000  0.000  0.00
 ```
 
 `radius_sweep()` runs `rqa()` over a grid of candidate radii and
@@ -102,11 +131,25 @@ optionally attaches a bootstrap-baseline ribbon. The companion
 `autoplot()` method reproduces the radius-selection plot from the
 paper:
 
-```{r radius-sweep, fig.width = 6, fig.height = 4}
+
+``` r
 sweep <- radius_sweep(fix, radii = c(30, 60, 90, 120, 150),
                       bootstrap_n = 99L, seed = 1L)
 ggplot2::autoplot(sweep)
+#> Warning: Removed 3 rows containing missing values or values outside the scale range
+#> (`geom_ribbon()`).
+#> Warning: Removed 3 rows containing missing values or values outside the scale range
+#> (`geom_line()`).
+#> Removed 3 rows containing missing values or values outside the scale range
+#> (`geom_line()`).
+#> Warning: Removed 3 rows containing missing values or values outside the scale range
+#> (`geom_point()`).
 ```
+
+<div class="figure">
+<img src="man/figures/README-radius-sweep-1.png" alt="plot of chunk radius-sweep" width="100%" />
+<p class="caption">plot of chunk radius-sweep</p>
+</div>
 
 ## Reference
 
